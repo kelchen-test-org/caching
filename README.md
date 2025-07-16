@@ -1,5 +1,6 @@
 # Squid Proxy for Kubernetes
 
+<!-- CI workflows test -->
 This repository contains a Helm chart for deploying a Squid HTTP proxy server in Kubernetes. The chart is designed to be self-contained and deploys into a dedicated `proxy` namespace.
 
 ## Prerequisites
