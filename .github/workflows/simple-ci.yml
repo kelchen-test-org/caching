@@ -1,0 +1,49 @@
+name: Simple CI Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Print environment info
+      run: |
+        echo "🎉 CI workflow triggered successfully!"
+        echo "Event: ${{ github.event_name }}"
+        echo "Branch: ${{ github.ref }}"
+        echo "PR Number: ${{ github.event.number }}"
+        echo "Repository: ${{ github.repository }}"
+        
+    - name: List files
+      run: |
+        echo "Files in repository:"
+        ls -la
+        
+    - name: Check Helm chart structure
+      run: |
+        if [ -d "squid" ]; then
+          echo "✅ Squid Helm chart directory found"
+          ls -la squid/
+        else
+          echo "❌ Squid directory not found"
+        fi
+        
+    - name: Validate Helm syntax
+      run: |
+        # Install Helm
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        
+        # Check if the chart is valid
+        if [ -f "squid/Chart.yaml" ]; then
+          echo "✅ Validating Helm chart..."
+          helm lint squid/
+        else
+          echo "⚠️  No Chart.yaml found, skipping Helm validation"
+        fi 
