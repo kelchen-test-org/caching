@@ -17,7 +17,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.merge_commit_sha }}
+        # Use head.sha for immediate availability instead of merge_commit_sha
+        # Original: ref: ${{ github.event.pull_request.merge_commit_sha }}
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
       
     - name: Install podman
       run: |
