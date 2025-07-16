@@ -409,3 +409,5 @@ When modifying the chart:
 ## License
 
 This project is licensed under the terms specified in the LICENSE file.
+
+<!-- Merge queue test - second PR -->
